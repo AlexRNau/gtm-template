@@ -1,0 +1,5 @@
+homepage: "https://www.lytics.com"
+documentation: "https://learn.lytics.com"
+versions:
+  - sha: MUST_SHA
+    changeNotes: Initial release.
