@@ -28,52 +28,97 @@ ___INFO___
 
 ___TEMPLATE_PARAMETERS___
 
-[]
+[
+  {
+    "type": "TEXT",
+    "name": "accountId",
+    "displayName": "Lytics Account ID",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "STRING_LENGTH",
+        "args": [
+          32,
+          32
+        ]
+      }
+    ]
+  },
+  {
+    "type": "TEXT",
+    "name": "cid",
+    "displayName": "Lytics CID",
+    "simpleValueType": true,
+    "valueValidators": [
+      {
+        "type": "REGEX",
+        "args": [
+          "^(?:\\d+\\s*,?\\s*)+$"
+        ]
+      }
+    ]
+  }
+]
 
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 (function () {
-  'use strict';
+  "use strict";
 
-  /* GTM Standard Library */
-  var injectScript = require('injectScript');
+  var config = {
+    // allow multiple comma-delimited Lytics CIDs to be entered via the GTM UI:
+    cid: ("" + data.cid).split(",").map(function (it) {
+      return it.trim();
+    }),
+    // the minified tag bundle for this account:
+    src: "https://c.lytics.io/api/tag/" + data.accountId + "/latest.min.js",
+  };
 
-  var setInWindow = require('setInWindow');
+  /* beginning of GTM standard library imports */
+  var injectScript = require("injectScript");
+  var setInWindow = require("setInWindow");
+  var copyFromWindow = require("copyFromWindow");
+  var logToConsole = require("logToConsole");
+  /* end of GTM standard library imports*/
 
-  var logToConsole = require('logToConsole');
-
-  var jstag = {};
-  setInWindow('jstag', jstag);
+  // a queue for buffering calls until the tag has loaded:
   var queue = [];
-  stub('send');
-  stub('mock');
-  stub('identify');
-  stub('pageView');
-  stub('unblock');
-  stub('getid');
-  stub('setid');
-  stub('call');
-  stub('on');
-  stub('once');
-  jstag.asyncVersion = '3.0.7';
-  jstag.loadScript = injectScript;
-  jstag.init = init;
 
-  function init(config) {
-    jstag.config = config;
+  // a facade interface mocking out some of the jstag API:
+  var jstag = { asyncVersion: "gtm-1.0.0" };
+  stub("send");
+  stub("mock");
+  stub("identify");
+  stub("pageView");
+  stub("unblock");
+  stub("getid");
+  stub("setid");
+  stub("call");
+  stub("on");
+  stub("once");
+  jstag.loadScript = injectScript;
+  jstag.init = undefined;
+  jstag.config = config;
+
+  // export the facade:
+  setInWindow("jstag", jstag);
+
+  // entrypoint for effects:
+  main();
+
+  function main() {
     jstag.loadScript(config.src, function () {
-      if (jstag.init === init) {
-        logToConsole('Could not load the Lytics Javascript Tag!');
+      var sdk = copyFromWindow("jstag");
+      if (sdk.init === undefined) {
+        logToConsole("Could not load the Lytics Javascript Tag!");
         data.gtmOnFailure();
         return;
       }
-
-      jstag.init(jstag.config);
+      sdk.init();
       data.gtmOnSuccess();
       applyQueue();
     });
-    return jstag;
   }
 
   function stub(method) {
@@ -88,11 +133,9 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
       var args = queue[i][1];
       jstag[method].apply(jstag, args);
     }
-
     queue = undefined;
   }
-
-}());
+})();
 
 
 ___WEB_PERMISSIONS___
@@ -183,7 +226,23 @@ ___WEB_PERMISSIONS___
         "publicId": "inject_script",
         "versionId": "1"
       },
-      "param": []
+      "param": [
+        {
+          "key": "urls",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "https://c.lytics.io/api/tag/*/latest.min.js"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   }
@@ -197,6 +256,6 @@ scenarios: []
 
 ___NOTES___
 
-Created on 5/28/2020, 3:01:40 PM
+Created on 5/29/2020, 2:55:29 PM
 
 
