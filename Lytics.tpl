@@ -33,16 +33,7 @@ ___TEMPLATE_PARAMETERS___
     "type": "TEXT",
     "name": "accountId",
     "displayName": "Lytics Account ID",
-    "simpleValueType": true,
-    "valueValidators": [
-      {
-        "type": "STRING_LENGTH",
-        "args": [
-          32,
-          32
-        ]
-      }
-    ]
+    "simpleValueType": true
   },
   {
     "type": "TEXT",
@@ -53,10 +44,12 @@ ___TEMPLATE_PARAMETERS___
       {
         "type": "REGEX",
         "args": [
-          "^(?:\\d+\\s*,?\\s*)+$"
+          "^(?:\\d+\\s*,?\\s*)*$"
         ]
       }
-    ]
+    ],
+    "canBeEmptyString": true,
+    "help": "Optional"
   }
 ]
 
@@ -68,9 +61,11 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
   var config = {
     // allow multiple comma-delimited Lytics CIDs to be entered via the GTM UI:
-    cid: ("" + data.cid).split(",").map(function (it) {
-      return it.trim();
-    }),
+    cid: data.cid
+      ? ("" + data.cid).split(",").map(function (it) {
+          return it.trim();
+        })
+      : undefined,
     // the minified tag bundle for this account:
     src: "https://c.lytics.io/api/tag/" + data.accountId + "/latest.min.js",
   };
@@ -256,6 +251,6 @@ scenarios: []
 
 ___NOTES___
 
-Created on 5/29/2020, 2:55:29 PM
+Created on 5/29/2020, 4:14:38 PM
 
 
