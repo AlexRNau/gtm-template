@@ -1,1 +1,5 @@
-# Lytics
+![Lytics](lytics.png)
+
+[Lytics](https://www.lytics.com/) is a real-time customer data platform (CDP), that helps organizations create a single view of their customers. Organizations can unify data and surface insights in order for marketers to deliver and automate personalized experiences based on customer behavior and preferences to improve overall efficiency and drive growth.
+
+The Lytics JavaScript Tag is responsible for tracking user behavior during their site visit. This anonymous tracking is an important input for constructing user profiles and enriching them with game-changing behavioral scores and content affinities. For more information, visit [the documentation for the Lytics JavaScript tag](https://learn.lytics.com/documentation/product/features/lytics-javascript-tag/introduction) or see the  specific instructions on [how to install Lytics in Google Tag Manager](https://learn.lytics.com/documentation/product/features/lytics-javascript-tag/working-with-tag-managers#installing-using-google-tag-manager).
