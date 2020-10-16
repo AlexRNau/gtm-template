@@ -69,7 +69,7 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
     // the minified tag bundle for this account:
     src:
       "https://c.lytics.io/api/tag/" +
-      encodeURIComponent(data.accountId) +
+      encodeUriComponent(data.accountId) +
       "/latest.min.js",
   };
 
