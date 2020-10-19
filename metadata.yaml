@@ -1,7 +1,11 @@
 homepage: "https://www.lytics.com"
 documentation: "https://learn.lytics.com"
 versions:
-  - sha: 6a5349115c8e965baea03877e6c5af227e5bb3aa
-    changeNotes: Initial release.
+  # Latest "version"
+  - sha: ddf6ab6bd2c1f88b2f768c5672a5281ef8edf55b
+    changeNotes: Removes a trailing comma.
+  # Older "versions"
   - sha: a8c002b98fd5046acfee0ee360f426b85d4af7e6
     changeNotes: Fix typo.
+  - sha: 6a5349115c8e965baea03877e6c5af227e5bb3aa
+    changeNotes: Initial release.
