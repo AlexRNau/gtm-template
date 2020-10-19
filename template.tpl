@@ -70,7 +70,7 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
     src:
       "https://c.lytics.io/api/tag/" +
       encodeUriComponent(data.accountId) +
-      "/latest.min.js",
+      "/latest.min.js"
   };
 
   /* beginning of GTM standard library imports */
