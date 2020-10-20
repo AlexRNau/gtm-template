@@ -2,5 +2,5 @@ homepage: "https://www.lytics.com"
 documentation: "https://learn.lytics.com"
 versions:
   # "initial" "version"
-  - sha: 52e9f6c2f54dfc0174580d215393647cbe4861c2
+  - sha: 5b4aedc171b69672379d9986765b03cbb5230d8f
     changeNotes: Initial release.
