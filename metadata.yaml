@@ -1,6 +1,6 @@
 homepage: "https://www.lytics.com"
 documentation: "https://learn.lytics.com"
 versions:
-  # Latest "version"
-  - sha: ddf6ab6bd2c1f88b2f768c5672a5281ef8edf55b
+  # "initial" "version"
+  - sha: 52e9f6c2f54dfc0174580d215393647cbe4861c2
     changeNotes: Initial release.
