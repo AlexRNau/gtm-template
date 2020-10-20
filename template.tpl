@@ -59,6 +59,14 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 (function () {
   "use strict";
 
+  /* beginning of GTM standard library imports */
+  var injectScript = require("injectScript");
+  var setInWindow = require("setInWindow");
+  var copyFromWindow = require("copyFromWindow");
+  var logToConsole = require("logToConsole");
+  var encodeUriComponent = require("encodeUriComponent");
+  /* end of GTM standard library imports*/
+
   var config = {
     // allow multiple comma-delimited Lytics CIDs to be entered via the GTM UI:
     cid: data.cid
@@ -73,12 +81,6 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
       "/latest.min.js"
   };
 
-  /* beginning of GTM standard library imports */
-  var injectScript = require("injectScript");
-  var setInWindow = require("setInWindow");
-  var copyFromWindow = require("copyFromWindow");
-  var logToConsole = require("logToConsole");
-  /* end of GTM standard library imports*/
 
   // a queue for buffering calls until the tag has loaded:
   var queue = [];
@@ -255,5 +257,4 @@ scenarios: []
 ___NOTES___
 
 Created on 5/29/2020, 4:14:38 PM
-
-
+Edited many times since
